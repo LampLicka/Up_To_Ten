@@ -32,11 +32,12 @@
     h1 span { color: var(--gold); }
     .subtitle { max-width: 440px; margin: 0 auto; color: var(--muted); line-height: 1.7; font: 15px/1.7 Arial, sans-serif; }
     .cards { display: flex; justify-content: center; align-items: center; margin: 38px auto 36px; height: 112px; }
-    .playing-card { width: 66px; height: 96px; border-radius: 8px; background: var(--cream); color: #b72d35; display: flex; flex-direction: column; justify-content: space-between; padding: 9px; box-shadow: 0 8px 18px #0003; font-size: 22px; text-align: left; border: 1px solid #ddd4c3; }
-    .playing-card:nth-child(1) { transform: rotate(-15deg) translateX(13px); color: #202020; }
-    .playing-card:nth-child(2) { transform: rotate(-5deg) translateX(5px); color: #b72d35; z-index: 1; }
-    .playing-card:nth-child(3) { transform: rotate(6deg) translateX(-3px); color: #202020; z-index: 2; }
-    .playing-card:nth-child(4) { transform: rotate(15deg) translateX(-12px); color: #b72d35; }
+    .playing-card { width: 66px; min-width: 66px; height: 96px; border-radius: 8px; background: var(--cream); color: #202020; display: flex; flex-direction: column; justify-content: space-between; padding: 9px; box-shadow: 0 8px 18px #0003; font-size: 22px; text-align: left; border: 1px solid #ddd4c3; }
+    .red-card { color: #b72d35; }
+    .cards .playing-card:nth-child(1) { transform: rotate(-15deg) translateX(13px); }
+    .cards .playing-card:nth-child(2) { transform: rotate(-5deg) translateX(5px); z-index: 1; }
+    .cards .playing-card:nth-child(3) { transform: rotate(6deg) translateX(-3px); z-index: 2; }
+    .cards .playing-card:nth-child(4) { transform: rotate(15deg) translateX(-12px); }
     .playing-card small { align-self: flex-end; transform: rotate(180deg); }
     .actions { width: min(100%, 360px); margin: auto; display: grid; gap: 12px; }
     button { cursor: pointer; min-height: 50px; border-radius: 7px; padding: 12px 18px; transition: transform .15s; }
@@ -48,7 +49,7 @@
     .rule { padding: 17px 13px; border: 1px solid #ffffff20; border-radius: 8px; background: #ffffff08; }
     .rule strong { display: block; color: var(--gold); font-size: 15px; margin-bottom: 8px; }
     .rule p { color: var(--muted); font: 12px/1.6 Arial, sans-serif; margin: 0; }
-    .panel { display: none; width: min(100%, 420px); margin: 18px auto 0; padding: 20px; border: 1px solid #ffffff30; border-radius: 8px; background: #0c2d24; text-align: left; }
+    .panel { display: none; width: min(100%, 460px); margin: 18px auto 0; padding: 20px; border: 1px solid #ffffff30; border-radius: 8px; background: #0c2d24; text-align: left; }
     .panel h2 { margin: 0 0 10px; font-size: 23px; }
     .panel p { color: var(--muted); font: 13px/1.6 Arial, sans-serif; }
     .panel label { display: block; margin: 14px 0 7px; font: 13px Arial, sans-serif; }
@@ -58,6 +59,11 @@
     .player-list { padding-left: 22px; line-height: 1.9; color: var(--cream); font: 14px Arial, sans-serif; }
     .room-code { color: var(--gold); font-size: 30px; letter-spacing: 4px; font-weight: bold; overflow-wrap: anywhere; }
     .hidden { display: none !important; }
+    .game-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 16px 0; }
+    .game-card { cursor: default; }
+    .game-card small { font-size: 14px; }
+    .game-section { margin-top: 22px; padding-top: 18px; border-top: 1px solid #ffffff20; }
+    .game-section h3 { color: var(--gold); }
     footer { margin-top: 40px; text-align: center; color: #c5d3ca99; font: 11px Arial, sans-serif; letter-spacing: 1px; }
     @media (max-width: 480px) {
       main { padding-top: 36px; }
@@ -85,9 +91,9 @@
 
       <div class="cards" aria-label="Playing cards">
         <div class="playing-card">A<small>♠</small></div>
-        <div class="playing-card">K<small>♥</small></div>
+        <div class="playing-card red-card">K<small>♥</small></div>
         <div class="playing-card">10<small>♣</small></div>
-        <div class="playing-card">Q<small>♦</small></div>
+        <div class="playing-card red-card">Q<small>♦</small></div>
       </div>
 
       <div class="actions" id="mainActions">
@@ -142,6 +148,38 @@
         <p>When everyone has joined, the next step will be to build the card game itself.</p>
       </section>
 
+      <!-- Initial game screen. It will be connected to Supabase in the next step. -->
+      <section class="panel" id="gamePanel" aria-live="polite">
+        <h2>Round <span id="gameRound">1</span></h2>
+        <p id="gamePhase">Your game information will appear here.</p>
+
+        <div class="rule" style="text-align:center;">
+          <strong>Face-up trump card</strong>
+          <div id="trumpCard" class="playing-card" style="margin:12px auto;">
+            ?
+          </div>
+          <p id="trumpSuit">Trump suit will appear here.</p>
+        </div>
+
+        <div class="game-section">
+          <h3>Your hand</h3>
+          <div id="yourHand" class="game-cards">
+            <p>Your dealt cards will appear here.</p>
+          </div>
+        </div>
+
+        <div class="game-section">
+          <h3>Players</h3>
+          <ol class="player-list" id="gamePlayerList"></ol>
+        </div>
+
+        <p class="status" id="gameStatus" role="status">
+          The game screen has been added, but game controls are not connected yet.
+        </p>
+        <button class="secondary" onclick="refreshGame()">Refresh Game</button>
+        <button class="secondary" onclick="leaveLobbyView()">Back to Home</button>
+      </section>
+
       <section class="rules">
         <div class="rule">
           <strong>01. Place your bid</strong>
@@ -162,7 +200,7 @@
   </div>
 
   <script>
-    // These are the public website connection details, not secret keys.
+    // Public website connection details. Never put a service-role key here.
     const SUPABASE_URL = "https://spswgpfstyhedfitrofz.supabase.co";
     const SUPABASE_KEY = "sb_publishable_s9W5z-uHtQan0gO9hCNguw_VfugtBsO";
 
@@ -175,6 +213,7 @@
       selectedAction = action;
       document.getElementById("setupPanel").style.display = "block";
       document.getElementById("lobbyPanel").style.display = "none";
+      document.getElementById("gamePanel").style.display = "none";
       document.getElementById("panelTitle").textContent =
         action === "create" ? "Create a Game" : "Join a Game";
       document.getElementById("panelText").textContent =
@@ -261,7 +300,7 @@
         }
 
         if (!result || !result.room_code || !result.player_id || !result.player_token) {
-          throw new Error("Supabase responded, but the room details were incomplete. Please tell me what happened.");
+          throw new Error("Supabase responded, but the room details were incomplete.");
         }
 
         session = {
@@ -320,6 +359,7 @@
 
     async function openLobby() {
       document.getElementById("setupPanel").style.display = "none";
+      document.getElementById("gamePanel").style.display = "none";
       document.getElementById("lobbyPanel").style.display = "block";
       document.getElementById("returnButton").classList.remove("hidden");
       document.getElementById("lobbyCode").textContent = session.room_code;
@@ -383,11 +423,17 @@
         lobbyTimer = null;
       }
       document.getElementById("lobbyPanel").style.display = "none";
+      document.getElementById("gamePanel").style.display = "none";
       document.getElementById("setupPanel").style.display = "none";
       document.getElementById("mainActions").scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    // Restore a previously saved room on this browser, if one exists.
+    // Placeholder until the game-state function is connected.
+    async function refreshGame() {
+      document.getElementById("gameStatus").textContent =
+        "The game screen is ready, but live game data has not been connected yet.";
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       session = readSavedSession();
       if (session && session.room_code && session.player_id && session.player_token) {
