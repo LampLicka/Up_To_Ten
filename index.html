@@ -9,238 +9,56 @@
   <style>
     :root {
       --green: #123c30;
-      --green-light: #1b5742;
       --gold: #e5bd72;
       --cream: #faf6ec;
       --muted: #c5d3ca;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
       color: var(--cream);
-      background:
-        radial-gradient(ellipse at top, #245c45 0%, transparent 60%),
-        var(--green);
+      background: radial-gradient(ellipse at top, #245c45 0%, transparent 60%), var(--green);
       font-family: Georgia, "Times New Roman", serif;
     }
-
-    button, input { font: inherit; }
-
-    .page {
-      width: min(100% - 32px, 760px);
-      margin: auto;
-      padding: 28px 0 40px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px solid #ffffff26;
-      padding-bottom: 18px;
-    }
-
-    .brand {
-      color: var(--gold);
-      font-size: 14px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .badge {
-      border: 1px solid #ffffff30;
-      border-radius: 30px;
-      padding: 7px 11px;
-      color: var(--muted);
-      font: 12px Arial, sans-serif;
-    }
-
+    button, input, select { font: inherit; }
+    .page { width: min(100% - 32px, 760px); margin: auto; padding: 28px 0 40px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #ffffff26; padding-bottom: 18px; }
+    .brand { color: var(--gold); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
+    .badge { border: 1px solid #ffffff30; border-radius: 30px; padding: 7px 11px; color: var(--muted); font: 12px Arial, sans-serif; }
     main { text-align: center; padding-top: 48px; }
-
-    .eyebrow {
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font: 12px Arial, sans-serif;
-    }
-
-    h1 {
-      font-size: clamp(48px, 10vw, 82px);
-      line-height: .98;
-      margin: 16px 0;
-      font-weight: normal;
-      letter-spacing: -3px;
-    }
-
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font: 12px Arial, sans-serif; }
+    h1 { font-size: clamp(48px, 10vw, 82px); line-height: .98; margin: 16px 0; font-weight: normal; letter-spacing: -3px; }
     h1 span { color: var(--gold); }
-
-    .subtitle {
-      max-width: 440px;
-      margin: 0 auto;
-      color: var(--muted);
-      line-height: 1.7;
-      font: 15px/1.7 Arial, sans-serif;
-    }
-
-    .cards {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 38px auto 36px;
-      height: 112px;
-    }
-
-    .playing-card {
-      width: 66px;
-      height: 96px;
-      border-radius: 8px;
-      background: var(--cream);
-      color: #b72d35;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 9px;
-      box-shadow: 0 8px 18px #0003;
-      font-size: 22px;
-      text-align: left;
-      border: 1px solid #ddd4c3;
-    }
-
-    .playing-card:nth-child(1) {
-      transform: rotate(-15deg) translateX(13px);
-      color: #202020;
-    }
-
-    .playing-card:nth-child(2) {
-      transform: rotate(-5deg) translateX(5px);
-      color: #b72d35;
-      z-index: 1;
-    }
-
-    .playing-card:nth-child(3) {
-      transform: rotate(6deg) translateX(-3px);
-      color: #202020;
-      z-index: 2;
-    }
-
-    .playing-card:nth-child(4) {
-      transform: rotate(15deg) translateX(-12px);
-      color: #b72d35;
-    }
-
-    .playing-card small {
-      align-self: flex-end;
-      transform: rotate(180deg);
-    }
-
-    .actions {
-      width: min(100%, 360px);
-      margin: auto;
-      display: grid;
-      gap: 12px;
-    }
-
-    button {
-      cursor: pointer;
-      min-height: 54px;
-      border-radius: 7px;
-      padding: 14px 18px;
-      transition: transform .15s, background .15s;
-    }
-
+    .subtitle { max-width: 440px; margin: 0 auto; color: var(--muted); line-height: 1.7; font: 15px/1.7 Arial, sans-serif; }
+    .cards { display: flex; justify-content: center; align-items: center; margin: 38px auto 36px; height: 112px; }
+    .playing-card { width: 66px; height: 96px; border-radius: 8px; background: var(--cream); color: #b72d35; display: flex; flex-direction: column; justify-content: space-between; padding: 9px; box-shadow: 0 8px 18px #0003; font-size: 22px; text-align: left; border: 1px solid #ddd4c3; }
+    .playing-card:nth-child(1) { transform: rotate(-15deg) translateX(13px); color: #202020; }
+    .playing-card:nth-child(2) { transform: rotate(-5deg) translateX(5px); color: #b72d35; z-index: 1; }
+    .playing-card:nth-child(3) { transform: rotate(6deg) translateX(-3px); color: #202020; z-index: 2; }
+    .playing-card:nth-child(4) { transform: rotate(15deg) translateX(-12px); color: #b72d35; }
+    .playing-card small { align-self: flex-end; transform: rotate(180deg); }
+    .actions { width: min(100%, 360px); margin: auto; display: grid; gap: 12px; }
+    button { cursor: pointer; min-height: 50px; border-radius: 7px; padding: 12px 18px; transition: transform .15s; }
     button:hover { transform: translateY(-1px); }
-
-    .primary {
-      border: 1px solid var(--gold);
-      color: #19382b;
-      background: var(--gold);
-      font-weight: bold;
-    }
-
-    .secondary {
-      border: 1px solid #ffffff55;
-      background: #ffffff0a;
-      color: var(--cream);
-    }
-
-    .rules {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 54px;
-      text-align: left;
-    }
-
-    .rule {
-      padding: 17px 13px;
-      border: 1px solid #ffffff20;
-      border-radius: 8px;
-      background: #ffffff08;
-    }
-
-    .rule strong {
-      display: block;
-      color: var(--gold);
-      font-size: 15px;
-      margin-bottom: 8px;
-    }
-
-    .rule p {
-      color: var(--muted);
-      font: 12px/1.6 Arial, sans-serif;
-      margin: 0;
-    }
-
-    .panel {
-      display: none;
-      width: min(100%, 360px);
-      margin: 18px auto 0;
-      padding: 20px;
-      border: 1px solid #ffffff30;
-      border-radius: 8px;
-      background: #0c2d24;
-      text-align: left;
-    }
-
+    button:disabled { opacity: .6; cursor: wait; }
+    .primary { border: 1px solid var(--gold); color: #19382b; background: var(--gold); font-weight: bold; }
+    .secondary { border: 1px solid #ffffff55; background: #ffffff0a; color: var(--cream); }
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 54px; text-align: left; }
+    .rule { padding: 17px 13px; border: 1px solid #ffffff20; border-radius: 8px; background: #ffffff08; }
+    .rule strong { display: block; color: var(--gold); font-size: 15px; margin-bottom: 8px; }
+    .rule p { color: var(--muted); font: 12px/1.6 Arial, sans-serif; margin: 0; }
+    .panel { display: none; width: min(100%, 420px); margin: 18px auto 0; padding: 20px; border: 1px solid #ffffff30; border-radius: 8px; background: #0c2d24; text-align: left; }
     .panel h2 { margin: 0 0 10px; font-size: 23px; }
     .panel p { color: var(--muted); font: 13px/1.6 Arial, sans-serif; }
-
-    .panel label {
-      display: block;
-      margin: 14px 0 7px;
-      font: 13px Arial, sans-serif;
-    }
-
-    .panel input {
-      width: 100%;
-      min-height: 46px;
-      border-radius: 5px;
-      padding: 12px;
-      border: 1px solid #ffffff50;
-      background: #ffffff10;
-      color: white;
-    }
-
-    .panel .primary { width: 100%; margin-top: 12px; }
-
-    .status {
-      font: 13px/1.6 Arial, sans-serif;
-      color: var(--gold);
-      overflow-wrap: anywhere;
-    }
-
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: #c5d3ca99;
-      font: 11px Arial, sans-serif;
-      letter-spacing: 1px;
-    }
-
+    .panel label { display: block; margin: 14px 0 7px; font: 13px Arial, sans-serif; }
+    .panel input, .panel select { width: 100%; min-height: 46px; border-radius: 5px; padding: 12px; border: 1px solid #ffffff50; background: #173d31; color: white; }
+    .panel .primary { width: 100%; margin-top: 14px; }
+    .status { font: 13px/1.6 Arial, sans-serif; color: var(--gold); overflow-wrap: anywhere; }
+    .player-list { padding-left: 22px; line-height: 1.9; color: var(--cream); font: 14px Arial, sans-serif; }
+    .room-code { color: var(--gold); font-size: 30px; letter-spacing: 4px; font-weight: bold; overflow-wrap: anywhere; }
+    .hidden { display: none !important; }
+    footer { margin-top: 40px; text-align: center; color: #c5d3ca99; font: 11px Arial, sans-serif; letter-spacing: 1px; }
     @media (max-width: 480px) {
       main { padding-top: 36px; }
       .rules { grid-template-columns: 1fr; margin-top: 38px; }
@@ -272,28 +90,56 @@
         <div class="playing-card">Q<small>♦</small></div>
       </div>
 
-      <div class="actions">
-        <button class="primary" onclick="showPanel('create')">
-          Create a Game
-        </button>
-        <button class="secondary" onclick="showPanel('join')">
-          Join a Game
-        </button>
+      <div class="actions" id="mainActions">
+        <button class="primary" onclick="showPanel('create')">Create a Game</button>
+        <button class="secondary" onclick="showPanel('join')">Join a Game</button>
+        <button class="secondary hidden" id="returnButton" onclick="restoreSession()">Return to My Lobby</button>
       </div>
 
-      <section class="panel" id="panel" aria-live="polite">
+      <section class="panel" id="setupPanel" aria-live="polite">
         <h2 id="panelTitle">Create a Game</h2>
         <p id="panelText"></p>
-        <div id="joinField" style="display:none">
-          <label for="roomCode">Room code</label>
-          <input id="roomCode" maxlength="8"
-                 placeholder="Enter your friend's code">
+
+        <div id="joinField" class="hidden">
+          <label for="roomCodeInput">Room code</label>
+          <input id="roomCodeInput" maxlength="6" placeholder="Enter your friend's code" autocomplete="off">
         </div>
-        <label for="playerName">Your player name</label>
-        <input id="playerName" maxlength="20"
-               placeholder="Enter your name">
-        <button class="primary" onclick="continueSetup()">Continue</button>
-        <p class="status" id="status"></p>
+
+        <label for="playerName">Your player name (max 18 characters)</label>
+        <input id="playerName" maxlength="18" placeholder="Enter your name" autocomplete="nickname">
+
+        <div id="capacityField">
+          <label for="maxPlayers">Maximum players</label>
+          <select id="maxPlayers">
+            <option value="2">2 players</option>
+            <option value="3">3 players</option>
+            <option value="4">4 players</option>
+            <option value="5" selected>5 players</option>
+            <option value="6">6 players</option>
+            <option value="7">7 players</option>
+            <option value="8">8 players</option>
+            <option value="9">9 players</option>
+            <option value="10">10 players</option>
+          </select>
+        </div>
+
+        <button class="primary" id="continueButton" onclick="continueSetup()">Continue</button>
+        <button class="secondary" onclick="hideSetup()">Cancel</button>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="panel" id="lobbyPanel" aria-live="polite">
+        <h2>Your Game Lobby</h2>
+        <p>Share this code with your friends so they can join.</p>
+        <div class="room-code" id="lobbyCode">------</div>
+        <button class="secondary" onclick="copyRoomCode()">Copy Room Code</button>
+        <p id="lobbySummary"></p>
+        <h3>Players in this room</h3>
+        <ol class="player-list" id="playerList"></ol>
+        <p class="status" id="lobbyStatus">Checking lobby...</p>
+        <button class="secondary" onclick="refreshLobby()">Refresh Lobby</button>
+        <button class="secondary" onclick="leaveLobbyView()">Back to Home</button>
+        <p>When everyone has joined, the next step will be to build the card game itself.</p>
       </section>
 
       <section class="rules">
@@ -316,43 +162,238 @@
   </div>
 
   <script>
-    let selectedAction = "";
+    // These are the public website connection details, not secret keys.
+    const SUPABASE_URL = "https://spswgpfstyhedfitrofz.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_s9W5z-uHtQan0gO9hCNguw_VfugtBsO";
+
+    const SESSION_KEY = "upToTenPlayerSession";
+    let selectedAction = "create";
+    let lobbyTimer = null;
+    let session = null;
 
     function showPanel(action) {
       selectedAction = action;
-      document.getElementById("panel").style.display = "block";
+      document.getElementById("setupPanel").style.display = "block";
+      document.getElementById("lobbyPanel").style.display = "none";
       document.getElementById("panelTitle").textContent =
         action === "create" ? "Create a Game" : "Join a Game";
       document.getElementById("panelText").textContent =
         action === "create"
-          ? "Set up your player details. Online room creation will be connected in a later step."
-          : "Enter the room code shared by your friend. Online joining will be connected in a later step.";
-      document.getElementById("joinField").style.display =
-        action === "join" ? "block" : "none";
+          ? "Choose your player name and room size."
+          : "Enter the room code your friend shared with you.";
+      document.getElementById("joinField").classList.toggle("hidden", action !== "join");
+      document.getElementById("capacityField").classList.toggle("hidden", action !== "create");
       document.getElementById("status").textContent = "";
-      document.getElementById("panel").scrollIntoView({
-        behavior: "smooth", block: "center"
-      });
+      document.getElementById("setupPanel").scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    function continueSetup() {
+    function hideSetup() {
+      document.getElementById("setupPanel").style.display = "none";
+    }
+
+    async function supabaseRPC(functionName, body) {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`
+        },
+        body: JSON.stringify(body)
+      });
+
+      const raw = await response.text();
+      let result;
+
+      try {
+        result = raw ? JSON.parse(raw) : null;
+      } catch {
+        result = raw;
+      }
+
+      if (!response.ok) {
+        const message = result && typeof result === "object"
+          ? (result.message || result.details || result.hint || JSON.stringify(result))
+          : String(result || `Request failed (${response.status})`);
+        throw new Error(message);
+      }
+
+      return result;
+    }
+
+    async function continueSetup() {
       const name = document.getElementById("playerName").value.trim();
-      const code = document.getElementById("roomCode").value.trim();
+      const code = document.getElementById("roomCodeInput").value.trim().toUpperCase();
       const status = document.getElementById("status");
+      const button = document.getElementById("continueButton");
 
       if (!name) {
         status.textContent = "Please enter your player name.";
         return;
       }
-
+      if (name.length > 18) {
+        status.textContent = "Your name must be 18 characters or fewer.";
+        return;
+      }
       if (selectedAction === "join" && !code) {
         status.textContent = "Please enter your friend's room code.";
         return;
       }
 
-      status.textContent =
-        "Your details are ready. Online multiplayer is not connected yet; we'll add that next.";
+      button.disabled = true;
+      status.textContent = selectedAction === "create"
+        ? "Creating your room..."
+        : "Joining your friend's room...";
+
+      try {
+        let result;
+
+        if (selectedAction === "create") {
+          result = await supabaseRPC("tt_create_room", {
+            p_player_name: name,
+            p_max_players: Number(document.getElementById("maxPlayers").value)
+          });
+        } else {
+          result = await supabaseRPC("tt_join_room", {
+            p_room_code: code,
+            p_player_name: name
+          });
+        }
+
+        if (!result || !result.room_code || !result.player_id || !result.player_token) {
+          throw new Error("Supabase responded, but the room details were incomplete. Please tell me what happened.");
+        }
+
+        session = {
+          room_code: result.room_code,
+          room_id: result.room_id,
+          player_id: result.player_id,
+          player_token: result.player_token,
+          is_host: result.is_host,
+          player_name: name
+        };
+
+        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+        hideSetup();
+        await openLobby();
+      } catch (error) {
+        status.textContent = `Couldn't ${selectedAction === "create" ? "create" : "join"} the room: ${error.message}`;
+      } finally {
+        button.disabled = false;
+      }
     }
+
+    function readSavedSession() {
+      try {
+        const saved = localStorage.getItem(SESSION_KEY);
+        return saved ? JSON.parse(saved) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function restoreSession() {
+      session = readSavedSession();
+      if (!session) {
+        document.getElementById("returnButton").classList.add("hidden");
+        showPanel("join");
+        return;
+      }
+
+      try {
+        hideSetup();
+        await openLobby();
+      } catch (error) {
+        document.getElementById("status").textContent = error.message;
+      }
+    }
+
+    async function getLobby() {
+      if (!session) throw new Error("No saved room session. Create or join a room first.");
+
+      return await supabaseRPC("tt_get_lobby", {
+        p_room_code: session.room_code,
+        p_player_id: session.player_id,
+        p_player_token: session.player_token
+      });
+    }
+
+    async function openLobby() {
+      document.getElementById("setupPanel").style.display = "none";
+      document.getElementById("lobbyPanel").style.display = "block";
+      document.getElementById("returnButton").classList.remove("hidden");
+      document.getElementById("lobbyCode").textContent = session.room_code;
+      document.getElementById("lobbyStatus").textContent = "Loading players...";
+      document.getElementById("lobbyPanel").scrollIntoView({ behavior: "smooth", block: "center" });
+
+      await refreshLobby();
+
+      if (lobbyTimer) clearInterval(lobbyTimer);
+      lobbyTimer = setInterval(async () => {
+        if (!session || document.hidden) return;
+        try {
+          await refreshLobby();
+        } catch (error) {
+          document.getElementById("lobbyStatus").textContent = `Lobby refresh failed: ${error.message}`;
+        }
+      }, 3000);
+    }
+
+    async function refreshLobby() {
+      const status = document.getElementById("lobbyStatus");
+      try {
+        const lobby = await getLobby();
+        const players = Array.isArray(lobby.players) ? lobby.players : [];
+
+        document.getElementById("lobbyCode").textContent = lobby.room_code;
+        document.getElementById("lobbySummary").textContent =
+          `${players.length} of ${lobby.max_players} players joined.`;
+
+        const list = document.getElementById("playerList");
+        list.replaceChildren();
+
+        for (const player of players) {
+          const item = document.createElement("li");
+          item.textContent = `${player.player_name}${player.is_host ? " (Host)" : ""}`;
+          list.appendChild(item);
+        }
+
+        status.textContent = lobby.status === "waiting"
+          ? "Waiting for friends to join. This lobby refreshes automatically."
+          : `Room status: ${lobby.status}`;
+      } catch (error) {
+        status.textContent = `Couldn't load the lobby: ${error.message}`;
+        throw error;
+      }
+    }
+
+    async function copyRoomCode() {
+      try {
+        await navigator.clipboard.writeText(session.room_code);
+        document.getElementById("lobbyStatus").textContent = "Room code copied!";
+      } catch {
+        document.getElementById("lobbyStatus").textContent =
+          `Share this code with your friends: ${session.room_code}`;
+      }
+    }
+
+    function leaveLobbyView() {
+      if (lobbyTimer) {
+        clearInterval(lobbyTimer);
+        lobbyTimer = null;
+      }
+      document.getElementById("lobbyPanel").style.display = "none";
+      document.getElementById("setupPanel").style.display = "none";
+      document.getElementById("mainActions").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // Restore a previously saved room on this browser, if one exists.
+    window.addEventListener("DOMContentLoaded", () => {
+      session = readSavedSession();
+      if (session && session.room_code && session.player_id && session.player_token) {
+        document.getElementById("returnButton").classList.remove("hidden");
+      }
+    });
   </script>
 </body>
 </html>
