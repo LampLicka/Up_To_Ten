@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123c30">
+  <title>Up To Ten | Card Game</title>
+  <style>
+    :root {
+      --green: #123c30;
+      --green-light: #1b5742;
+      --gold: #e5bd72;
+      --cream: #faf6ec;
+      --muted: #c5d3ca;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--cream);
+      background:
+        radial-gradient(ellipse at top, #245c45 0%, transparent 60%),
+        var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      width: min(100% - 32px, 760px);
+      margin: auto;
+      padding: 28px 0 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid #ffffff26;
+      padding-bottom: 18px;
+    }
+
+    .brand {
+      color: var(--gold);
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      border: 1px solid #ffffff30;
+      border-radius: 30px;
+      padding: 7px 11px;
+      color: var(--muted);
+      font: 12px Arial, sans-serif;
+    }
+
+    main { text-align: center; padding-top: 48px; }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font: 12px Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: clamp(48px, 10vw, 82px);
+      line-height: .98;
+      margin: 16px 0;
+      font-weight: normal;
+      letter-spacing: -3px;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .subtitle {
+      max-width: 440px;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.7;
+      font: 15px/1.7 Arial, sans-serif;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 38px auto 36px;
+      height: 112px;
+    }
+
+    .playing-card {
+      width: 66px;
+      height: 96px;
+      border-radius: 8px;
+      background: var(--cream);
+      color: #b72d35;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 9px;
+      box-shadow: 0 8px 18px #0003;
+      font-size: 22px;
+      text-align: left;
+      border: 1px solid #ddd4c3;
+    }
+
+    .playing-card:nth-child(1) {
+      transform: rotate(-15deg) translateX(13px);
+      color: #202020;
+    }
+
+    .playing-card:nth-child(2) {
+      transform: rotate(-5deg) translateX(5px);
+      color: #b72d35;
+      z-index: 1;
+    }
+
+    .playing-card:nth-child(3) {
+      transform: rotate(6deg) translateX(-3px);
+      color: #202020;
+      z-index: 2;
+    }
+
+    .playing-card:nth-child(4) {
+      transform: rotate(15deg) translateX(-12px);
+      color: #b72d35;
+    }
+
+    .playing-card small {
+      align-self: flex-end;
+      transform: rotate(180deg);
+    }
+
+    .actions {
+      width: min(100%, 360px);
+      margin: auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    button {
+      cursor: pointer;
+      min-height: 54px;
+      border-radius: 7px;
+      padding: 14px 18px;
+      transition: transform .15s, background .15s;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .primary {
+      border: 1px solid var(--gold);
+      color: #19382b;
+      background: var(--gold);
+      font-weight: bold;
+    }
+
+    .secondary {
+      border: 1px solid #ffffff55;
+      background: #ffffff0a;
+      color: var(--cream);
+    }
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 54px;
+      text-align: left;
+    }
+
+    .rule {
+      padding: 17px 13px;
+      border: 1px solid #ffffff20;
+      border-radius: 8px;
+      background: #ffffff08;
+    }
+
+    .rule strong {
+      display: block;
+      color: var(--gold);
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .rule p {
+      color: var(--muted);
+      font: 12px/1.6 Arial, sans-serif;
+      margin: 0;
+    }
+
+    .panel {
+      display: none;
+      width: min(100%, 360px);
+      margin: 18px auto 0;
+      padding: 20px;
+      border: 1px solid #ffffff30;
+      border-radius: 8px;
+      background: #0c2d24;
+      text-align: left;
+    }
+
+    .panel h2 { margin: 0 0 10px; font-size: 23px; }
+    .panel p { color: var(--muted); font: 13px/1.6 Arial, sans-serif; }
+
+    .panel label {
+      display: block;
+      margin: 14px 0 7px;
+      font: 13px Arial, sans-serif;
+    }
+
+    .panel input {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 5px;
+      padding: 12px;
+      border: 1px solid #ffffff50;
+      background: #ffffff10;
+      color: white;
+    }
+
+    .panel .primary { width: 100%; margin-top: 12px; }
+
+    .status {
+      font: 13px/1.6 Arial, sans-serif;
+      color: var(--gold);
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #c5d3ca99;
+      font: 11px Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      main { padding-top: 36px; }
+      .rules { grid-template-columns: 1fr; margin-top: 38px; }
+      .rule { padding: 14px; }
+      .rule p { font-size: 13px; }
+      .badge { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">♠ Up To Ten</div>
+      <div class="badge">MULTIPLAYER CARD GAME</div>
+    </header>
+
+    <main>
+      <div class="eyebrow">Every trick counts</div>
+      <h1>Up To <span>Ten.</span></h1>
+      <p class="subtitle">
+        Bid smart. Play your hand. Know when to take a chance.
+        Ten rounds stand between you and victory.
+      </p>
+
+      <div class="cards" aria-label="Playing cards">
+        <div class="playing-card">A<small>♠</small></div>
+        <div class="playing-card">K<small>♥</small></div>
+        <div class="playing-card">10<small>♣</small></div>
+        <div class="playing-card">Q<small>♦</small></div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" onclick="showPanel('create')">
+          Create a Game
+        </button>
+        <button class="secondary" onclick="showPanel('join')">
+          Join a Game
+        </button>
+      </div>
+
+      <section class="panel" id="panel" aria-live="polite">
+        <h2 id="panelTitle">Create a Game</h2>
+        <p id="panelText"></p>
+        <div id="joinField" style="display:none">
+          <label for="roomCode">Room code</label>
+          <input id="roomCode" maxlength="8"
+                 placeholder="Enter your friend's code">
+        </div>
+        <label for="playerName">Your player name</label>
+        <input id="playerName" maxlength="20"
+               placeholder="Enter your name">
+        <button class="primary" onclick="continueSetup()">Continue</button>
+        <p class="status" id="status"></p>
+      </section>
+
+      <section class="rules">
+        <div class="rule">
+          <strong>01. Place your bid</strong>
+          <p>Predict how many tricks you can win with your hand.</p>
+        </div>
+        <div class="rule">
+          <strong>02. Play your cards</strong>
+          <p>Follow suit when possible. Trump can change everything.</p>
+        </div>
+        <div class="rule">
+          <strong>03. Hit your number</strong>
+          <p>Make your exact bid to score. Miss it and score zero.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>UP TO TEN · OUTPLAY YOUR OPPONENTS</footer>
+  </div>
+
+  <script>
+    let selectedAction = "";
+
+    function showPanel(action) {
+      selectedAction = action;
+      document.getElementById("panel").style.display = "block";
+      document.getElementById("panelTitle").textContent =
+        action === "create" ? "Create a Game" : "Join a Game";
+      document.getElementById("panelText").textContent =
+        action === "create"
+          ? "Set up your player details. Online room creation will be connected in a later step."
+          : "Enter the room code shared by your friend. Online joining will be connected in a later step.";
+      document.getElementById("joinField").style.display =
+        action === "join" ? "block" : "none";
+      document.getElementById("status").textContent = "";
+      document.getElementById("panel").scrollIntoView({
+        behavior: "smooth", block: "center"
+      });
+    }
+
+    function continueSetup() {
+      const name = document.getElementById("playerName").value.trim();
+      const code = document.getElementById("roomCode").value.trim();
+      const status = document.getElementById("status");
+
+      if (!name) {
+        status.textContent = "Please enter your player name.";
+        return;
+      }
+
+      if (selectedAction === "join" && !code) {
+        status.textContent = "Please enter your friend's room code.";
+        return;
+      }
+
+      status.textContent =
+        "Your details are ready. Online multiplayer is not connected yet; we'll add that next.";
+    }
+  </script>
+</body>
+</html>
