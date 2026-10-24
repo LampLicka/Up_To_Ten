@@ -483,7 +483,7 @@
     const isPlaying = state.phase === "playing";
 
     $("bidSection").classList.toggle("hidden", !isBidding || myBid !== null);
-    $("handSection").classList.toggle("hidden", !isPlaying);
+    $("handSection").classList.remove("hidden");
     $("bidHelp").textContent = myTurn
       ? "It's your turn. Choose how many tricks you expect to win."
       : `Waiting for ${playerAtSeat(players, state.current_turn_seat)} to bid.`;
