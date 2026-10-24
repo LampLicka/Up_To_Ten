@@ -8,438 +8,642 @@
   <title>Up To Ten | Card Game</title>
   <style>
     :root {
-      --green: #123c30;
-      --gold: #e5bd72;
-      --cream: #faf6ec;
-      --muted: #c5d3ca;
+      --green:#123c30; --gold:#e5bd72; --cream:#faf6ec;
+      --muted:#c5d3ca; --red:#b72d35;
     }
-    * { box-sizing: border-box; }
+    * { box-sizing:border-box; }
     body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--cream);
-      background: radial-gradient(ellipse at top, #245c45 0%, transparent 60%), var(--green);
-      font-family: Georgia, "Times New Roman", serif;
+      margin:0; min-height:100vh; color:var(--cream);
+      background:radial-gradient(ellipse at top,#245c45 0%,transparent 60%),var(--green);
+      font-family:Georgia,"Times New Roman",serif;
     }
-    button, input, select { font: inherit; }
-    .page { width: min(100% - 32px, 760px); margin: auto; padding: 28px 0 40px; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #ffffff26; padding-bottom: 18px; }
-    .brand { color: var(--gold); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
-    .badge { border: 1px solid #ffffff30; border-radius: 30px; padding: 7px 11px; color: var(--muted); font: 12px Arial, sans-serif; }
-    main { text-align: center; padding-top: 48px; }
-    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font: 12px Arial, sans-serif; }
-    h1 { font-size: clamp(48px, 10vw, 82px); line-height: .98; margin: 16px 0; font-weight: normal; letter-spacing: -3px; }
-    h1 span { color: var(--gold); }
-    .subtitle { max-width: 440px; margin: 0 auto; color: var(--muted); line-height: 1.7; font: 15px/1.7 Arial, sans-serif; }
-    .cards { display: flex; justify-content: center; align-items: center; margin: 38px auto 36px; height: 112px; }
-    .playing-card { width: 66px; min-width: 66px; height: 96px; border-radius: 8px; background: var(--cream); color: #202020; display: flex; flex-direction: column; justify-content: space-between; padding: 9px; box-shadow: 0 8px 18px #0003; font-size: 22px; text-align: left; border: 1px solid #ddd4c3; }
-    .red-card { color: #b72d35; }
-    .cards .playing-card:nth-child(1) { transform: rotate(-15deg) translateX(13px); }
-    .cards .playing-card:nth-child(2) { transform: rotate(-5deg) translateX(5px); z-index: 1; }
-    .cards .playing-card:nth-child(3) { transform: rotate(6deg) translateX(-3px); z-index: 2; }
-    .cards .playing-card:nth-child(4) { transform: rotate(15deg) translateX(-12px); }
-    .playing-card small { align-self: flex-end; transform: rotate(180deg); }
-    .actions { width: min(100%, 360px); margin: auto; display: grid; gap: 12px; }
-    button { cursor: pointer; min-height: 50px; border-radius: 7px; padding: 12px 18px; transition: transform .15s; }
-    button:hover { transform: translateY(-1px); }
-    button:disabled { opacity: .6; cursor: wait; }
-    .primary { border: 1px solid var(--gold); color: #19382b; background: var(--gold); font-weight: bold; }
-    .secondary { border: 1px solid #ffffff55; background: #ffffff0a; color: var(--cream); }
-    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 54px; text-align: left; }
-    .rule { padding: 17px 13px; border: 1px solid #ffffff20; border-radius: 8px; background: #ffffff08; }
-    .rule strong { display: block; color: var(--gold); font-size: 15px; margin-bottom: 8px; }
-    .rule p { color: var(--muted); font: 12px/1.6 Arial, sans-serif; margin: 0; }
-    .panel { display: none; width: min(100%, 460px); margin: 18px auto 0; padding: 20px; border: 1px solid #ffffff30; border-radius: 8px; background: #0c2d24; text-align: left; }
-    .panel h2 { margin: 0 0 10px; font-size: 23px; }
-    .panel p { color: var(--muted); font: 13px/1.6 Arial, sans-serif; }
-    .panel label { display: block; margin: 14px 0 7px; font: 13px Arial, sans-serif; }
-    .panel input, .panel select { width: 100%; min-height: 46px; border-radius: 5px; padding: 12px; border: 1px solid #ffffff50; background: #173d31; color: white; }
-    .panel .primary { width: 100%; margin-top: 14px; }
-    .status { font: 13px/1.6 Arial, sans-serif; color: var(--gold); overflow-wrap: anywhere; }
-    .player-list { padding-left: 22px; line-height: 1.9; color: var(--cream); font: 14px Arial, sans-serif; }
-    .room-code { color: var(--gold); font-size: 30px; letter-spacing: 4px; font-weight: bold; overflow-wrap: anywhere; }
-    .hidden { display: none !important; }
-    .game-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 16px 0; }
-    .game-card { cursor: default; }
-    .game-card small { font-size: 14px; }
-    .game-section { margin-top: 22px; padding-top: 18px; border-top: 1px solid #ffffff20; }
-    .game-section h3 { color: var(--gold); }
-    footer { margin-top: 40px; text-align: center; color: #c5d3ca99; font: 11px Arial, sans-serif; letter-spacing: 1px; }
-    @media (max-width: 480px) {
-      main { padding-top: 36px; }
-      .rules { grid-template-columns: 1fr; margin-top: 38px; }
-      .rule { padding: 14px; }
-      .rule p { font-size: 13px; }
-      .badge { font-size: 10px; }
+    button,input,select { font:inherit; }
+    button { cursor:pointer; min-height:46px; border-radius:7px; padding:10px 15px; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .page { width:min(100% - 28px,760px); margin:auto; padding:24px 0 40px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom:1px solid #ffffff26; padding-bottom:16px; }
+    .brand { color:var(--gold); font-size:14px; letter-spacing:3px; text-transform:uppercase; }
+    .badge { border:1px solid #ffffff30; border-radius:30px; padding:7px 11px; color:var(--muted); font:11px Arial,sans-serif; }
+    main { text-align:center; padding-top:34px; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:4px; font:12px Arial,sans-serif; }
+    h1 { font-size:clamp(46px,10vw,76px); line-height:.98; margin:15px 0; font-weight:normal; letter-spacing:-3px; }
+    h1 span { color:var(--gold); }
+    .subtitle { max-width:440px; margin:0 auto; color:var(--muted); font:15px/1.7 Arial,sans-serif; }
+    .hero-cards { display:flex; justify-content:center; align-items:center; margin:32px auto; height:100px; }
+    .playing-card {
+      width:67px; min-width:67px; height:96px; border-radius:8px;
+      background:var(--cream); color:#202020; display:flex; flex-direction:column;
+      justify-content:space-between; padding:8px; box-shadow:0 5px 14px #0004;
+      font-size:22px; text-align:left; border:1px solid #ddd4c3;
+    }
+    .playing-card small { align-self:flex-end; transform:rotate(180deg); }
+    .red-card { color:var(--red); }
+    .hero-cards .playing-card:nth-child(1) { transform:rotate(-15deg) translateX(13px); }
+    .hero-cards .playing-card:nth-child(2) { transform:rotate(-5deg) translateX(5px); z-index:1; }
+    .hero-cards .playing-card:nth-child(3) { transform:rotate(6deg) translateX(-3px); z-index:2; }
+    .hero-cards .playing-card:nth-child(4) { transform:rotate(15deg) translateX(-12px); }
+    .actions { width:min(100%,360px); margin:auto; display:grid; gap:10px; }
+    .primary { border:1px solid var(--gold); color:#19382b; background:var(--gold); font-weight:bold; }
+    .secondary { border:1px solid #ffffff55; background:#ffffff0a; color:var(--cream); }
+    .panel { display:none; width:100%; margin:18px auto 0; padding:20px; border:1px solid #ffffff30; border-radius:9px; background:#0c2d24; text-align:left; }
+    .panel h2 { margin:0 0 10px; font-size:25px; }
+    .panel p { color:var(--muted); font:14px/1.6 Arial,sans-serif; }
+    label { display:block; margin:13px 0 7px; font:13px Arial,sans-serif; }
+    input,select { width:100%; min-height:44px; border-radius:5px; padding:10px; border:1px solid #ffffff50; background:#173d31; color:white; }
+    .panel > button { margin-top:10px; }
+    .panel .wide { width:100%; }
+    .status { color:var(--gold)!important; font:13px/1.6 Arial,sans-serif!important; overflow-wrap:anywhere; }
+    .player-list { padding-left:22px; line-height:1.9; font:14px Arial,sans-serif; }
+    .room-code { color:var(--gold); font-size:30px; letter-spacing:4px; font-weight:bold; overflow-wrap:anywhere; }
+    .hidden { display:none!important; }
+    .rule { padding:15px; border:1px solid #ffffff20; border-radius:8px; background:#ffffff08; }
+    .rule strong { display:block; color:var(--gold); margin-bottom:8px; }
+    .game-section { margin-top:20px; padding-top:15px; border-top:1px solid #ffffff20; }
+    .game-section h3 { color:var(--gold); margin:0 0 12px; }
+    .game-cards { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:9px; margin:14px 0; }
+    .game-card { cursor:pointer; transition:transform .12s; }
+    .game-card:hover:not(:disabled) { transform:translateY(-7px); }
+    .game-card:disabled { cursor:default; opacity:.8; }
+    .game-card small { font-size:14px; }
+    .playing-card .rank { font-weight:bold; }
+    .trick-play { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+    .played { text-align:center; color:var(--muted); font:12px Arial,sans-serif; }
+    .played .playing-card { margin:5px auto; }
+    .player-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(135px,1fr)); gap:9px; }
+    .player-box { border:1px solid #ffffff25; background:#ffffff08; padding:11px; border-radius:7px; font:13px/1.6 Arial,sans-serif; overflow-wrap:anywhere; }
+    .player-box.active { border-color:var(--gold); }
+    .player-box strong { color:var(--gold); display:block; }
+    .bid-controls { display:flex; gap:10px; align-items:center; }
+    .bid-controls select { flex:1; }
+    .rules { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:42px; text-align:left; }
+    footer { margin-top:38px; text-align:center; color:#c5d3ca99; font:11px Arial,sans-serif; letter-spacing:1px; }
+    @media(max-width:480px) {
+      main { padding-top:28px; }
+      .rules { grid-template-columns:1fr; margin-top:32px; }
+      .rule { padding:13px; }
+      .badge { font-size:9px; }
+      .panel { padding:15px; }
+      .playing-card { width:58px; min-width:58px; height:84px; font-size:20px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="brand">♠ Up To Ten</div>
-      <div class="badge">MULTIPLAYER CARD GAME</div>
-    </header>
+<div class="page">
+  <header>
+    <div class="brand">♠ Up To Ten</div>
+    <div class="badge">MULTIPLAYER CARD GAME</div>
+  </header>
 
-    <main>
-      <div class="eyebrow">Every trick counts</div>
-      <h1>Up To <span>Ten.</span></h1>
-      <p class="subtitle">
-        Bid smart. Play your hand. Know when to take a chance.
-        Ten rounds stand between you and victory.
-      </p>
+  <main>
+    <div class="eyebrow">Every trick counts</div>
+    <h1>Up To <span>Ten.</span></h1>
+    <p class="subtitle">Bid smart. Play your hand. Know when to take a chance. Ten rounds stand between you and victory.</p>
 
-      <div class="cards" aria-label="Playing cards">
-        <div class="playing-card">A<small>♠</small></div>
-        <div class="playing-card red-card">K<small>♥</small></div>
-        <div class="playing-card">10<small>♣</small></div>
-        <div class="playing-card red-card">Q<small>♦</small></div>
+    <div class="hero-cards" aria-label="Playing cards">
+      <div class="playing-card">A<small>♠</small></div>
+      <div class="playing-card red-card">K<small>♥</small></div>
+      <div class="playing-card">10<small>♣</small></div>
+      <div class="playing-card red-card">Q<small>♦</small></div>
+    </div>
+
+    <div class="actions" id="mainActions">
+      <button class="primary" onclick="showPanel('create')">Create a Game</button>
+      <button class="secondary" onclick="showPanel('join')">Join a Game</button>
+      <button class="secondary hidden" id="returnButton" onclick="restoreSession()">Return to My Game</button>
+    </div>
+
+    <section class="panel" id="setupPanel">
+      <h2 id="panelTitle">Create a Game</h2>
+      <p id="panelText"></p>
+      <div id="joinField" class="hidden">
+        <label for="roomCodeInput">Room code</label>
+        <input id="roomCodeInput" maxlength="6" placeholder="Enter your friend's code" autocomplete="off">
+      </div>
+      <label for="playerName">Your player name (max 18 characters)</label>
+      <input id="playerName" maxlength="18" placeholder="Enter your name" autocomplete="nickname">
+      <div id="capacityField">
+        <label for="maxPlayers">Maximum players</label>
+        <select id="maxPlayers">
+          <option value="2">2 players</option><option value="3">3 players</option>
+          <option value="4">4 players</option><option value="5" selected>5 players</option>
+          <option value="6">6 players</option><option value="7">7 players</option>
+          <option value="8">8 players</option><option value="9">9 players</option>
+          <option value="10">10 players</option>
+        </select>
+      </div>
+      <button class="primary wide" id="continueButton" onclick="continueSetup()">Continue</button>
+      <button class="secondary wide" onclick="hideSetup()">Cancel</button>
+      <p class="status" id="status" role="status"></p>
+    </section>
+
+    <section class="panel" id="lobbyPanel" aria-live="polite">
+      <h2>Your Game Lobby</h2>
+      <p>Share this code with your friends.</p>
+      <div class="room-code" id="lobbyCode">------</div>
+      <button class="secondary wide" onclick="copyRoomCode()">Copy Room Code</button>
+      <p id="lobbySummary"></p>
+      <h3>Players in this room</h3>
+      <ol class="player-list" id="playerList"></ol>
+      <p class="status" id="lobbyStatus">Checking lobby...</p>
+      <button class="primary wide hidden" id="startButton" onclick="startGame()">Start Game</button>
+      <button class="secondary wide" onclick="refreshLobby()">Refresh Lobby</button>
+      <button class="secondary wide" onclick="leaveLobbyView()">Back to Home</button>
+    </section>
+
+    <section class="panel" id="gamePanel" aria-live="polite">
+      <h2>Round <span id="gameRound">1</span></h2>
+      <p id="gamePhase">Loading game...</p>
+      <div class="rule" style="text-align:center">
+        <strong>Face-up trump card</strong>
+        <div id="trumpCard" class="playing-card" style="margin:12px auto">?</div>
+        <p id="trumpSuit">Trump suit</p>
       </div>
 
-      <div class="actions" id="mainActions">
-        <button class="primary" onclick="showPanel('create')">Create a Game</button>
-        <button class="secondary" onclick="showPanel('join')">Join a Game</button>
-        <button class="secondary hidden" id="returnButton" onclick="restoreSession()">Return to My Lobby</button>
+      <div id="bidSection" class="game-section hidden">
+        <h3>Place your bid</h3>
+        <p id="bidHelp"></p>
+        <div class="bid-controls">
+          <select id="bidSelect" aria-label="Your bid"></select>
+          <button class="primary" id="bidButton" onclick="submitBid()">Submit Bid</button>
+        </div>
       </div>
 
-      <section class="panel" id="setupPanel" aria-live="polite">
-        <h2 id="panelTitle">Create a Game</h2>
-        <p id="panelText"></p>
+      <div id="handSection" class="game-section">
+        <h3>Your hand</h3>
+        <p id="handHelp">Your cards appear below.</p>
+        <div id="yourHand" class="game-cards"></div>
+      </div>
 
-        <div id="joinField" class="hidden">
-          <label for="roomCodeInput">Room code</label>
-          <input id="roomCodeInput" maxlength="6" placeholder="Enter your friend's code" autocomplete="off">
-        </div>
+      <div class="game-section">
+        <h3>Current trick</h3>
+        <div id="currentTrick" class="trick-play"></div>
+      </div>
 
-        <label for="playerName">Your player name (max 18 characters)</label>
-        <input id="playerName" maxlength="18" placeholder="Enter your name" autocomplete="nickname">
+      <div class="game-section">
+        <h3>Players and scores</h3>
+        <div id="gamePlayerList" class="player-grid"></div>
+      </div>
 
-        <div id="capacityField">
-          <label for="maxPlayers">Maximum players</label>
-          <select id="maxPlayers">
-            <option value="2">2 players</option>
-            <option value="3">3 players</option>
-            <option value="4">4 players</option>
-            <option value="5" selected>5 players</option>
-            <option value="6">6 players</option>
-            <option value="7">7 players</option>
-            <option value="8">8 players</option>
-            <option value="9">9 players</option>
-            <option value="10">10 players</option>
-          </select>
-        </div>
+      <p class="status" id="gameStatus" role="status">Loading...</p>
+      <button class="secondary wide" onclick="refreshGame()">Refresh Game</button>
+      <button class="secondary wide" onclick="leaveLobbyView()">Back to Home</button>
+    </section>
 
-        <button class="primary" id="continueButton" onclick="continueSetup()">Continue</button>
-        <button class="secondary" onclick="hideSetup()">Cancel</button>
-        <p class="status" id="status" role="status"></p>
-      </section>
+    <section class="rules">
+      <div class="rule"><strong>01. Place your bid</strong><p>Predict how many tricks you can win.</p></div>
+      <div class="rule"><strong>02. Play your cards</strong><p>Follow suit when possible. Trump can change everything.</p></div>
+      <div class="rule"><strong>03. Hit your number</strong><p>Make your exact bid to score. Miss it and score zero.</p></div>
+    </section>
+  </main>
+  <footer>UP TO TEN · OUTPLAY YOUR OPPONENTS</footer>
+</div>
 
-      <section class="panel" id="lobbyPanel" aria-live="polite">
-        <h2>Your Game Lobby</h2>
-        <p>Share this code with your friends so they can join.</p>
-        <div class="room-code" id="lobbyCode">------</div>
-        <button class="secondary" onclick="copyRoomCode()">Copy Room Code</button>
-        <p id="lobbySummary"></p>
-        <h3>Players in this room</h3>
-        <ol class="player-list" id="playerList"></ol>
-        <p class="status" id="lobbyStatus">Checking lobby...</p>
-        <button class="secondary" onclick="refreshLobby()">Refresh Lobby</button>
-        <button class="secondary" onclick="leaveLobbyView()">Back to Home</button>
-        <p>When everyone has joined, the next step will be to build the card game itself.</p>
-      </section>
+<script>
+  const SUPABASE_URL = "https://spswgpfstyhedfitrofz.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_s9W5z-uHtQan0gO9hCNguw_VfugtBsO";
+  const SESSION_KEY = "upToTenPlayerSession";
 
-      <!-- Initial game screen. It will be connected to Supabase in the next step. -->
-      <section class="panel" id="gamePanel" aria-live="polite">
-        <h2>Round <span id="gameRound">1</span></h2>
-        <p id="gamePhase">Your game information will appear here.</p>
+  let selectedAction = "create";
+  let session = null;
+  let refreshTimer = null;
+  let busy = false;
+  let latestState = null;
 
-        <div class="rule" style="text-align:center;">
-          <strong>Face-up trump card</strong>
-          <div id="trumpCard" class="playing-card" style="margin:12px auto;">
-            ?
-          </div>
-          <p id="trumpSuit">Trump suit will appear here.</p>
-        </div>
+  const $ = id => document.getElementById(id);
 
-        <div class="game-section">
-          <h3>Your hand</h3>
-          <div id="yourHand" class="game-cards">
-            <p>Your dealt cards will appear here.</p>
-          </div>
-        </div>
+  function showOnly(panelId) {
+    ["setupPanel", "lobbyPanel", "gamePanel"].forEach(id => {
+      $(id).style.display = id === panelId ? "block" : "none";
+    });
+  }
 
-        <div class="game-section">
-          <h3>Players</h3>
-          <ol class="player-list" id="gamePlayerList"></ol>
-        </div>
+  function showPanel(action) {
+    selectedAction = action;
+    showOnly("setupPanel");
+    $("panelTitle").textContent = action === "create" ? "Create a Game" : "Join a Game";
+    $("panelText").textContent = action === "create"
+      ? "Choose your name and room size."
+      : "Enter the room code your friend shared.";
+    $("joinField").classList.toggle("hidden", action !== "join");
+    $("capacityField").classList.toggle("hidden", action !== "create");
+    $("status").textContent = "";
+    $("setupPanel").scrollIntoView({behavior:"smooth", block:"center"});
+  }
 
-        <p class="status" id="gameStatus" role="status">
-          The game screen has been added, but game controls are not connected yet.
-        </p>
-        <button class="secondary" onclick="refreshGame()">Refresh Game</button>
-        <button class="secondary" onclick="leaveLobbyView()">Back to Home</button>
-      </section>
+  function hideSetup() { $("setupPanel").style.display = "none"; }
 
-      <section class="rules">
-        <div class="rule">
-          <strong>01. Place your bid</strong>
-          <p>Predict how many tricks you can win with your hand.</p>
-        </div>
-        <div class="rule">
-          <strong>02. Play your cards</strong>
-          <p>Follow suit when possible. Trump can change everything.</p>
-        </div>
-        <div class="rule">
-          <strong>03. Hit your number</strong>
-          <p>Make your exact bid to score. Miss it and score zero.</p>
-        </div>
-      </section>
-    </main>
+  async function supabaseRPC(functionName, body) {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":`Bearer ${SUPABASE_KEY}`
+      },
+      body:JSON.stringify(body)
+    });
 
-    <footer>UP TO TEN · OUTPLAY YOUR OPPONENTS</footer>
-  </div>
+    const raw = await response.text();
+    let result;
+    try { result = raw ? JSON.parse(raw) : null; }
+    catch { result = raw; }
 
-  <script>
-    // Public website connection details. Never put a service-role key here.
-    const SUPABASE_URL = "https://spswgpfstyhedfitrofz.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_s9W5z-uHtQan0gO9hCNguw_VfugtBsO";
-
-    const SESSION_KEY = "upToTenPlayerSession";
-    let selectedAction = "create";
-    let lobbyTimer = null;
-    let session = null;
-
-    function showPanel(action) {
-      selectedAction = action;
-      document.getElementById("setupPanel").style.display = "block";
-      document.getElementById("lobbyPanel").style.display = "none";
-      document.getElementById("gamePanel").style.display = "none";
-      document.getElementById("panelTitle").textContent =
-        action === "create" ? "Create a Game" : "Join a Game";
-      document.getElementById("panelText").textContent =
-        action === "create"
-          ? "Choose your player name and room size."
-          : "Enter the room code your friend shared with you.";
-      document.getElementById("joinField").classList.toggle("hidden", action !== "join");
-      document.getElementById("capacityField").classList.toggle("hidden", action !== "create");
-      document.getElementById("status").textContent = "";
-      document.getElementById("setupPanel").scrollIntoView({ behavior: "smooth", block: "center" });
+    if (!response.ok) {
+      const message = result && typeof result === "object"
+        ? (result.message || result.details || result.hint || JSON.stringify(result))
+        : String(result || `Request failed (${response.status})`);
+      throw new Error(message);
     }
+    return result;
+  }
 
-    function hideSetup() {
-      document.getElementById("setupPanel").style.display = "none";
-    }
+  function rpcSessionArgs() {
+    if (!session) throw new Error("No saved player session. Create or join a room first.");
+    return {
+      p_room_code:session.room_code,
+      p_player_id:session.player_id,
+      p_player_token:session.player_token
+    };
+  }
 
-    async function supabaseRPC(functionName, body) {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`
-        },
-        body: JSON.stringify(body)
-      });
+  async function continueSetup() {
+    const name = $("playerName").value.trim();
+    const code = $("roomCodeInput").value.trim().toUpperCase();
+    if (!name) { $("status").textContent = "Please enter your name."; return; }
+    if (name.length > 18) { $("status").textContent = "Your name must be 18 characters or fewer."; return; }
+    if (selectedAction === "join" && !code) { $("status").textContent = "Please enter the room code."; return; }
 
-      const raw = await response.text();
-      let result;
+    $("continueButton").disabled = true;
+    $("status").textContent = selectedAction === "create" ? "Creating room..." : "Joining room...";
 
-      try {
-        result = raw ? JSON.parse(raw) : null;
-      } catch {
-        result = raw;
-      }
-
-      if (!response.ok) {
-        const message = result && typeof result === "object"
-          ? (result.message || result.details || result.hint || JSON.stringify(result))
-          : String(result || `Request failed (${response.status})`);
-        throw new Error(message);
-      }
-
-      return result;
-    }
-
-    async function continueSetup() {
-      const name = document.getElementById("playerName").value.trim();
-      const code = document.getElementById("roomCodeInput").value.trim().toUpperCase();
-      const status = document.getElementById("status");
-      const button = document.getElementById("continueButton");
-
-      if (!name) {
-        status.textContent = "Please enter your player name.";
-        return;
-      }
-      if (name.length > 18) {
-        status.textContent = "Your name must be 18 characters or fewer.";
-        return;
-      }
-      if (selectedAction === "join" && !code) {
-        status.textContent = "Please enter your friend's room code.";
-        return;
-      }
-
-      button.disabled = true;
-      status.textContent = selectedAction === "create"
-        ? "Creating your room..."
-        : "Joining your friend's room...";
-
-      try {
-        let result;
-
-        if (selectedAction === "create") {
-          result = await supabaseRPC("tt_create_room", {
-            p_player_name: name,
-            p_max_players: Number(document.getElementById("maxPlayers").value)
+    try {
+      const result = selectedAction === "create"
+        ? await supabaseRPC("tt_create_room", {
+            p_player_name:name,
+            p_max_players:Number($("maxPlayers").value)
+          })
+        : await supabaseRPC("tt_join_room", {
+            p_room_code:code,
+            p_player_name:name
           });
+
+      if (!result || !result.room_code || !result.player_id || !result.player_token) {
+        throw new Error("Room details were incomplete. Please try again.");
+      }
+
+      session = {
+        room_code:result.room_code,
+        room_id:result.room_id,
+        player_id:result.player_id,
+        player_token:result.player_token,
+        is_host:result.is_host,
+        player_name:name
+      };
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      await openLobby();
+    } catch (error) {
+      $("status").textContent = `Couldn't ${selectedAction === "create" ? "create" : "join"} the room: ${error.message}`;
+    } finally {
+      $("continueButton").disabled = false;
+    }
+  }
+
+  function readSavedSession() {
+    try {
+      const saved = localStorage.getItem(SESSION_KEY);
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  }
+
+  async function restoreSession() {
+    session = readSavedSession();
+    if (!session) { showPanel("join"); return; }
+    try {
+      const state = await getGameState();
+      if (state && state.success) await openGame(state);
+      else await openLobby();
+    } catch {
+      try { await openLobby(); }
+      catch (error) { $("status").textContent = error.message; showPanel("join"); }
+    }
+  }
+
+  async function getLobby() {
+    return supabaseRPC("tt_get_lobby", rpcSessionArgs());
+  }
+
+  function stopPolling() {
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = null;
+  }
+
+  function startPolling() {
+    stopPolling();
+    refreshTimer = setInterval(async () => {
+      if (document.hidden || busy || !session) return;
+      try {
+        const state = await getGameState();
+        if (state && state.success) {
+          await openGame(state, false);
         } else {
-          result = await supabaseRPC("tt_join_room", {
-            p_room_code: code,
-            p_player_name: name
-          });
-        }
-
-        if (!result || !result.room_code || !result.player_id || !result.player_token) {
-          throw new Error("Supabase responded, but the room details were incomplete.");
-        }
-
-        session = {
-          room_code: result.room_code,
-          room_id: result.room_id,
-          player_id: result.player_id,
-          player_token: result.player_token,
-          is_host: result.is_host,
-          player_name: name
-        };
-
-        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-        hideSetup();
-        await openLobby();
-      } catch (error) {
-        status.textContent = `Couldn't ${selectedAction === "create" ? "create" : "join"} the room: ${error.message}`;
-      } finally {
-        button.disabled = false;
-      }
-    }
-
-    function readSavedSession() {
-      try {
-        const saved = localStorage.getItem(SESSION_KEY);
-        return saved ? JSON.parse(saved) : null;
-      } catch {
-        return null;
-      }
-    }
-
-    async function restoreSession() {
-      session = readSavedSession();
-      if (!session) {
-        document.getElementById("returnButton").classList.add("hidden");
-        showPanel("join");
-        return;
-      }
-
-      try {
-        hideSetup();
-        await openLobby();
-      } catch (error) {
-        document.getElementById("status").textContent = error.message;
-      }
-    }
-
-    async function getLobby() {
-      if (!session) throw new Error("No saved room session. Create or join a room first.");
-
-      return await supabaseRPC("tt_get_lobby", {
-        p_room_code: session.room_code,
-        p_player_id: session.player_id,
-        p_player_token: session.player_token
-      });
-    }
-
-    async function openLobby() {
-      document.getElementById("setupPanel").style.display = "none";
-      document.getElementById("gamePanel").style.display = "none";
-      document.getElementById("lobbyPanel").style.display = "block";
-      document.getElementById("returnButton").classList.remove("hidden");
-      document.getElementById("lobbyCode").textContent = session.room_code;
-      document.getElementById("lobbyStatus").textContent = "Loading players...";
-      document.getElementById("lobbyPanel").scrollIntoView({ behavior: "smooth", block: "center" });
-
-      await refreshLobby();
-
-      if (lobbyTimer) clearInterval(lobbyTimer);
-      lobbyTimer = setInterval(async () => {
-        if (!session || document.hidden) return;
-        try {
           await refreshLobby();
-        } catch (error) {
-          document.getElementById("lobbyStatus").textContent = `Lobby refresh failed: ${error.message}`;
         }
-      }, 3000);
-    }
-
-    async function refreshLobby() {
-      const status = document.getElementById("lobbyStatus");
-      try {
-        const lobby = await getLobby();
-        const players = Array.isArray(lobby.players) ? lobby.players : [];
-
-        document.getElementById("lobbyCode").textContent = lobby.room_code;
-        document.getElementById("lobbySummary").textContent =
-          `${players.length} of ${lobby.max_players} players joined.`;
-
-        const list = document.getElementById("playerList");
-        list.replaceChildren();
-
-        for (const player of players) {
-          const item = document.createElement("li");
-          item.textContent = `${player.player_name}${player.is_host ? " (Host)" : ""}`;
-          list.appendChild(item);
-        }
-
-        status.textContent = lobby.status === "waiting"
-          ? "Waiting for friends to join. This lobby refreshes automatically."
-          : `Room status: ${lobby.status}`;
       } catch (error) {
-        status.textContent = `Couldn't load the lobby: ${error.message}`;
-        throw error;
+        const visible = $("gamePanel").style.display === "block" ? "gameStatus" : "lobbyStatus";
+        $(visible).textContent = `Refresh issue: ${error.message}`;
       }
-    }
+    }, 3000);
+  }
 
-    async function copyRoomCode() {
-      try {
-        await navigator.clipboard.writeText(session.room_code);
-        document.getElementById("lobbyStatus").textContent = "Room code copied!";
-      } catch {
-        document.getElementById("lobbyStatus").textContent =
-          `Share this code with your friends: ${session.room_code}`;
-      }
-    }
+  async function openLobby() {
+    showOnly("lobbyPanel");
+    $("returnButton").classList.remove("hidden");
+    $("lobbyCode").textContent = session.room_code;
+    $("lobbyStatus").textContent = "Loading players...";
+    await refreshLobby();
+    startPolling();
+    $("lobbyPanel").scrollIntoView({behavior:"smooth", block:"center"});
+  }
 
-    function leaveLobbyView() {
-      if (lobbyTimer) {
-        clearInterval(lobbyTimer);
-        lobbyTimer = null;
-      }
-      document.getElementById("lobbyPanel").style.display = "none";
-      document.getElementById("gamePanel").style.display = "none";
-      document.getElementById("setupPanel").style.display = "none";
-      document.getElementById("mainActions").scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+  async function refreshLobby() {
+    const lobby = await getLobby();
+    const players = Array.isArray(lobby.players) ? lobby.players : [];
+    $("lobbyCode").textContent = lobby.room_code || session.room_code;
+    $("lobbySummary").textContent = `${players.length} of ${lobby.max_players} players joined.`;
 
-    // Placeholder until the game-state function is connected.
-    async function refreshGame() {
-      document.getElementById("gameStatus").textContent =
-        "The game screen is ready, but live game data has not been connected yet.";
-    }
+    const list = $("playerList");
+    list.replaceChildren();
+    let isHost = false;
 
-    window.addEventListener("DOMContentLoaded", () => {
-      session = readSavedSession();
-      if (session && session.room_code && session.player_id && session.player_token) {
-        document.getElementById("returnButton").classList.remove("hidden");
+    players.forEach(player => {
+      const item = document.createElement("li");
+      item.textContent = `${player.player_name}${player.is_host ? " (Host)" : ""}`;
+      list.appendChild(item);
+      if (player.player_id === session.player_id || player.id === session.player_id) {
+        isHost = Boolean(player.is_host);
       }
     });
-  </script>
+
+    session.is_host = isHost || session.is_host;
+    $("startButton").classList.toggle("hidden", !session.is_host || lobby.status !== "waiting");
+    $("lobbyStatus").textContent = lobby.status === "waiting"
+      ? "Waiting for everyone to join. This lobby refreshes automatically."
+      : `Room status: ${lobby.status}`;
+  }
+
+  async function copyRoomCode() {
+    try {
+      await navigator.clipboard.writeText(session.room_code);
+      $("lobbyStatus").textContent = "Room code copied!";
+    } catch {
+      $("lobbyStatus").textContent = `Share this code: ${session.room_code}`;
+    }
+  }
+
+  async function startGame() {
+    if (!session || !session.is_host || busy) return;
+    busy = true;
+    $("startButton").disabled = true;
+    $("lobbyStatus").textContent = "Starting game...";
+    try {
+      await supabaseRPC("tt_start_game", rpcSessionArgs());
+      const state = await getGameState();
+      await openGame(state);
+    } catch (error) {
+      $("lobbyStatus").textContent = `Couldn't start the game: ${error.message}`;
+    } finally {
+      busy = false;
+      $("startButton").disabled = false;
+    }
+  }
+
+  async function getGameState() {
+    return supabaseRPC("tt_get_game_state", rpcSessionArgs());
+  }
+
+  function suitSymbol(suit) {
+    return ({clubs:"♣",diamonds:"♦",hearts:"♥",spades:"♠"})[suit] || "?";
+  }
+
+  function cardColor(suit) {
+    return suit === "hearts" || suit === "diamonds" ? "red-card" : "";
+  }
+
+  function cardRank(card) {
+    const rank = Number(card.rank);
+    return ({11:"J",12:"Q",13:"K",14:"A"})[rank] || String(rank);
+  }
+
+  function makeCard(card, clickable, index) {
+    const button = document.createElement("button");
+    button.className = `playing-card game-card ${cardColor(card.suit)}`;
+    button.type = "button";
+    button.disabled = !clickable || busy;
+    const rank = document.createElement("span");
+    rank.className = "rank";
+    rank.textContent = cardRank(card);
+    const suit = document.createElement("small");
+    suit.textContent = suitSymbol(card.suit);
+    button.append(rank, suit);
+    if (clickable) button.title = `Play ${card.label || `${cardRank(card)} of ${card.suit}`}`;
+    if (clickable) button.onclick = () => playCard(index);
+    return button;
+  }
+
+  async function openGame(state, scroll = true) {
+    if (!state || !state.success) throw new Error("Couldn't load the game state.");
+    latestState = state;
+    stopPolling();
+    showOnly("gamePanel");
+    $("returnButton").classList.remove("hidden");
+    $("gameRound").textContent = state.round_number;
+    $("gamePhase").textContent = phaseText(state.phase);
+    $("trumpSuit").textContent = state.trump_suit
+      ? `Trump suit: ${state.trump_suit[0].toUpperCase()}${state.trump_suit.slice(1)}`
+      : "Trump suit not set";
+
+    const trump = $("trumpCard");
+    trump.replaceChildren();
+    if (state.trump_card) {
+      trump.className = `playing-card ${cardColor(state.trump_card.suit)}`;
+      trump.append(
+        Object.assign(document.createElement("span"), {textContent:cardRank(state.trump_card)}),
+        Object.assign(document.createElement("small"), {textContent:suitSymbol(state.trump_card.suit)})
+      );
+    } else {
+      trump.className = "playing-card";
+      trump.textContent = "?";
+    }
+
+    const players = Array.isArray(state.players) ? state.players : [];
+    const me = players.find(p => p.player_id === state.your_player_id);
+    const myBid = me ? me.bid : null;
+    const myTurn = state.your_seat_number === state.current_turn_seat;
+    const isBidding = state.phase === "bidding";
+    const isPlaying = state.phase === "playing";
+
+    $("bidSection").classList.toggle("hidden", !isBidding || myBid !== null);
+    $("handSection").classList.toggle("hidden", !isPlaying);
+    $("bidHelp").textContent = myTurn
+      ? "It's your turn. Choose how many tricks you expect to win."
+      : `Waiting for ${playerAtSeat(players, state.current_turn_seat)} to bid.`;
+    $("bidButton").disabled = !myTurn || busy;
+
+    const bidSelect = $("bidSelect");
+    const oldBid = bidSelect.value;
+    bidSelect.replaceChildren();
+    for (let n = 0; n <= Number(state.round_number); n++) {
+      const option = document.createElement("option");
+      option.value = n;
+      option.textContent = `${n} ${n === 1 ? "trick" : "tricks"}`;
+      bidSelect.appendChild(option);
+    }
+    if (oldBid !== "" && Number(oldBid) <= Number(state.round_number)) bidSelect.value = oldBid;
+
+    const hand = $("yourHand");
+    hand.replaceChildren();
+    const cards = Array.isArray(state.your_cards) ? state.your_cards : [];
+    if (!cards.length) {
+      hand.textContent = isPlaying ? "No cards remaining in your hand." : "Cards will appear here when play begins.";
+    } else {
+      cards.forEach((card, index) => hand.appendChild(makeCard(card, isPlaying && myTurn, index)));
+    }
+
+    $("handHelp").textContent = isPlaying
+      ? (myTurn ? "Your turn. Select a card to play." : `Waiting for ${playerAtSeat(players, state.current_turn_seat)} to play.`)
+      : "Your cards are private and only visible to you.";
+
+    const trick = $("currentTrick");
+    trick.replaceChildren();
+    const plays = Array.isArray(state.current_trick) ? state.current_trick : [];
+    if (!plays.length) {
+      trick.textContent = "No cards played in this trick yet.";
+    } else {
+      plays.forEach(play => {
+        const wrap = document.createElement("div");
+        wrap.className = "played";
+        const name = document.createElement("div");
+        name.textContent = play.player_name || `Seat ${play.seat_number}`;
+        wrap.appendChild(name);
+        if (play.card) wrap.appendChild(makeCard(play.card, false, 0));
+        trick.appendChild(wrap);
+      });
+    }
+
+    const playerGrid = $("gamePlayerList");
+    playerGrid.replaceChildren();
+    players.forEach(player => {
+      const box = document.createElement("div");
+      box.className = "player-box" + (player.seat_number === state.current_turn_seat ? " active" : "");
+      const name = document.createElement("strong");
+      name.textContent = `${player.player_name}${player.is_host ? " ★" : ""}`;
+      const bid = document.createElement("div");
+      bid.textContent = `Bid: ${player.bid === null ? "Not yet" : player.bid}`;
+      const won = document.createElement("div");
+      won.textContent = `Tricks: ${player.tricks_won}`;
+      const score = document.createElement("div");
+      score.textContent = `Score: ${player.score}`;
+      box.append(name, bid, won, score);
+      playerGrid.appendChild(box);
+    });
+
+    if (state.phase === "finished") {
+      const sorted = [...players].sort((a,b) => b.score - a.score);
+      const top = sorted[0];
+      $("gameStatus").textContent = top
+        ? `Game over! ${top.player_name} wins with ${top.score} points.`
+        : "Game over!";
+    } else if (isBidding) {
+      $("gameStatus").textContent = myBid !== null
+        ? `Your bid is ${myBid}. Waiting for the other players.`
+        : myTurn ? "It's your turn to bid." : "Waiting for the current bidder.";
+    } else {
+      $("gameStatus").textContent = myTurn
+        ? "It's your turn to play a card."
+        : "Game in progress. The screen refreshes automatically.";
+    }
+
+    if (scroll) $("gamePanel").scrollIntoView({behavior:"smooth", block:"center"});
+    startPolling();
+  }
+
+  function playerAtSeat(players, seat) {
+    const player = players.find(p => p.seat_number === seat);
+    return player ? player.player_name : "the next player";
+  }
+
+  function phaseText(phase) {
+    return ({
+      bidding:"Bidding phase",
+      playing:"Play your cards",
+      round_scoring:"Scoring the round",
+      finished:"Game finished",
+      waiting:"Waiting to start"
+    })[phase] || `Game phase: ${phase}`;
+  }
+
+  async function submitBid() {
+    if (!latestState || busy) return;
+    busy = true;
+    $("bidButton").disabled = true;
+    $("gameStatus").textContent = "Submitting your bid...";
+    try {
+      await supabaseRPC("tt_submit_bid", {
+        ...rpcSessionArgs(),
+        p_bid:Number($("bidSelect").value)
+      });
+      const state = await getGameState();
+      await openGame(state, false);
+    } catch (error) {
+      $("gameStatus").textContent = `Couldn't submit your bid: ${error.message}`;
+    } finally {
+      busy = false;
+      if (latestState) await refreshGame().catch(() => {});
+    }
+  }
+
+  async function playCard(index) {
+    if (!latestState || busy) return;
+    busy = true;
+    $("gameStatus").textContent = "Playing card...";
+    try {
+      await supabaseRPC("tt_play_card", {
+        ...rpcSessionArgs(),
+        p_card_index:index
+      });
+      const state = await getGameState();
+      await openGame(state, false);
+    } catch (error) {
+      $("gameStatus").textContent = `Couldn't play that card: ${error.message}`;
+    } finally {
+      busy = false;
+      await refreshGame().catch(() => {});
+    }
+  }
+
+  async function refreshGame() {
+    try {
+      const state = await getGameState();
+      await openGame(state, false);
+    } catch (error) {
+      $("gameStatus").textContent = `Couldn't refresh game: ${error.message}`;
+      throw error;
+    }
+  }
+
+  function leaveLobbyView() {
+    stopPolling();
+    showOnly("");
+    $("returnButton").classList.remove("hidden");
+    $("mainActions").scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    session = readSavedSession();
+    if (session && session.room_code && session.player_id && session.player_token) {
+      $("returnButton").classList.remove("hidden");
+    }
+  });
+</script>
 </body>
 </html>
